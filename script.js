@@ -7,10 +7,11 @@
 
 const $input = document.querySelector("input");
 const $addBtn = document.querySelector(".addBtn");
-const $delBtn = document.querySelector(".delBtn");
+// const $delBtn = document.querySelectorAll(".delBtn");
 const $ul = document.querySelector("ul");
 // const $mokdata = document.querySelector(".mokdata");
 const $li = document.querySelectorAll("li");
+console.log($li);
 
 $addBtn.addEventListener("click", function () {
   let value = $input.value;
@@ -26,8 +27,14 @@ $addBtn.addEventListener("click", function () {
     document.createTextNode(`${countLi.length + 1}. ${value} `)
   );
   newList.appendChild(newDelBtn);
+
+  $input.value = "";
 });
 
-// 리스트 앞에 번호 붙이기
-// 1. li의 length를 가져온다.
-// 2. 새로 생성될때 전체 length에 +1을 해준다
+$ul.addEventListener("click", function (e) {
+  if (e.target.nodeName === "BUTTON") {
+    confirm("정말 삭제하시겠습니까?")
+      ? (e.target.parentNode.remove(), alert("삭제되었습니다."))
+      : alert("취소되었습니다.");
+  }
+});
