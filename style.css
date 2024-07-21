@@ -1,0 +1,64 @@
+@import url(./font.css);
+
+* {
+  font-family: "Freesentation-4Regular";
+}
+
+body {
+  margin: auto;
+  text-align: center;
+}
+
+header {
+  padding: 50px 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+section.addTodo {
+  padding: 50px 0;
+}
+
+section.addTodo input {
+  width: 40%;
+  height: 50px;
+
+  border-radius: 10px;
+
+  padding-left: 10px;
+}
+
+section.addTodo button {
+  background-color: #333;
+  color: #fff;
+
+  width: 10%;
+  min-width: 60px;
+  height: 51px;
+  border-radius: 10px;
+}
+
+section.listWrap {
+  text-align: left;
+  line-height: 50px;
+
+  margin: auto;
+  max-width: 50%;
+}
+
+section.listWrap ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+section.listWrap ul li button {
+  width: 70px;
+  height: 30px;
+  background-color: #e43333;
+  border: none;
+  border-radius: 50px;
+}
