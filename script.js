@@ -11,7 +11,6 @@ const $addBtn = document.querySelector(".addBtn");
 const $ul = document.querySelector("ul");
 // const $mokdata = document.querySelector(".mokdata");
 const $li = document.querySelectorAll("li");
-console.log($li);
 
 $addBtn.addEventListener("click", function () {
   let value = $input.value;
@@ -38,3 +37,12 @@ $ul.addEventListener("click", function (e) {
       : alert("취소되었습니다.");
   }
 });
+
+console.log($li.length);
+
+// 삭제 버튼을 눌렀을 때 삭제가 되면
+// 삭제된 요소 아래의 li 리스트 번호를 원래 번호에서 -1로 바꾼다
+// length의 길이에서 -1을 하면 성립될 수 없으니까
+// 번호만 불러와서 제어할 수 있는 html 태그를 만들어줘야된다
+// 번호를 불러와서 -1을 해준다
+// 그러고 html에 다시 그려준다
