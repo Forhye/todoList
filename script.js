@@ -5,29 +5,44 @@
 // 4. 저장된 인풋값을 화면에 보여준다
 // 5. 화면에 보여줄때 삭제 버튼도 함께 생성된다
 
+const todoUrl = "http://localhost:3000/todos";
+
 const $input = document.querySelector("input");
 const $addBtn = document.querySelector(".addBtn");
 const $ul = document.querySelector("ul");
 const $li = document.querySelectorAll("li");
 
+// 투두 서버에 추가
+const addTodo = async function (todotext) {
+  try {
+    const response = await fetch(todoUrl);
+    const todos = await response.json();
+
+    const newId = todos.length + 1;
+    const req = await fetch(todoUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: newId, todo: todotext }),
+    });
+
+    const newPost = await req.json();
+
+    const $li = document.createElement("li");
+    $li.textContent = newPost.todo;
+    $ul.appendChild($li);
+  } catch (err) {
+    console.log("error");
+  }
+};
+
+// 버튼 클릭 시 브라우저에 투두 추가
 $addBtn.addEventListener("click", function () {
   let value = $input.value;
-  let newList = document.createElement("li");
-  let newDelBtn = document.createElement("button");
-
-  newDelBtn.className = "delBtn";
-  newDelBtn.innerText = "삭제";
-
-  let countLi = document.querySelectorAll("li");
-  $ul.appendChild(newList);
-  newList.appendChild(
-    document.createTextNode(`${countLi.length + 1}. ${value} `)
-  );
-  newList.appendChild(newDelBtn);
-
+  addTodo(value);
   $input.value = "";
 });
 
+// 삭제 버튼 클릭 시 삭제 여부를 물어보고 서버에서 삭제하기
 $ul.addEventListener("click", function (e) {
   if (e.target.nodeName === "BUTTON") {
     confirm("정말 삭제하시겠습니까?")
@@ -41,8 +56,6 @@ $ul.classList.add("dataTodo");
 
 $listWrap.appendChild($ul);
 
-const todoUrl = "http://localhost:3000/todos";
-
 async function getData() {
   try {
     const res = await fetch(todoUrl);
@@ -52,7 +65,7 @@ async function getData() {
       const $li = document.createElement("li");
 
       $ul.appendChild($li);
-      $li.innerHTML = `<li>${item.id}. ${item.todo}</li>`;
+      $li.innerHTML = `${item.id}. ${item.todo}<button class="delBtn">삭제</button>`;
     });
   } catch (err) {
     console.error("오류발생");
