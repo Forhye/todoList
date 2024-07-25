@@ -7,9 +7,7 @@
 
 const $input = document.querySelector("input");
 const $addBtn = document.querySelector(".addBtn");
-// const $delBtn = document.querySelectorAll(".delBtn");
 const $ul = document.querySelector("ul");
-// const $mokdata = document.querySelector(".mokdata");
 const $li = document.querySelectorAll("li");
 
 $addBtn.addEventListener("click", function () {
@@ -38,7 +36,29 @@ $ul.addEventListener("click", function (e) {
   }
 });
 
-console.log($li.length);
+const $listWrap = document.querySelector(".listWrap");
+$ul.classList.add("dataTodo");
+
+$listWrap.appendChild($ul);
+
+const todoUrl = "http://localhost:3000/todos";
+
+async function getData() {
+  try {
+    const res = await fetch(todoUrl);
+    const resData = await res.json();
+
+    resData.forEach((item) => {
+      const $li = document.createElement("li");
+
+      $ul.appendChild($li);
+      $li.innerHTML = `<li>${item.id}. ${item.todo}</li>`;
+    });
+  } catch (err) {
+    console.error("오류발생");
+  }
+}
+getData();
 
 // 삭제 버튼을 눌렀을 때 삭제가 되면
 // 삭제된 요소 아래의 li 리스트 번호를 원래 번호에서 -1로 바꾼다
